@@ -3,16 +3,12 @@
 ### initialize project
 
 
-1. 下載 [sqlite3](https://www.sqlite.org/download.html)
-
-2. 把上面檔案路徑加到環境變數
-
-3. 執行下面語法新增sqlite db
-
-```
-sqlite sqlite.db
-.quit
+1. 安裝套件
+```shell
+pip install -r requirements.txt
 ```
 
-4. 執行start.py，新增table與輸入範例資料
-
+2. 執行服務
+```shell
+uvicorn main:app --reload
+```
