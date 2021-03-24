@@ -43,39 +43,39 @@ async def get_item(item_id: int):
     return {'item_id': item_id}
 
 
-# 1 path
-@app.get('/phone/{phone_id}')
-async def get_phone_id(phone_id: int):
-    phone_list = get_phone_list()
-    phone: Phone
-    for phone in phone_list:
-        if phone.id == phone_id:
-            return {'name': phone.name, 'description': phone.description, 'price': phone.price}
-    return {'Phone not found'}
-
-
-# 2 return list
-@app.get('/iphone')
-async def get_iphone():
-    phone_list = get_phone_list()
-    phone: Phone
-    result = []
-    for phone in phone_list:
-        if phone.name == 'IPhone':
-            result.append(phone)
-    return {'result': result}
-
-
-# 3 enum
-@app.get('/phone_name/{phone_name}')
-async def get_phone(phone_name: PhoneEnum):
-    if phone_name == PhoneEnum.samsung:
-        return {'Phone name': phone_name}
-
-    if phone_name.value == 'htc':
-        return {'Phone name': phone_name}
-
-    return {'Phone name': phone_name}
+# # 1 path
+# @app.get('/phone/{phone_id}')
+# async def get_phone_id(phone_id: int):
+#     phone_list = get_phone_list()
+#     phone: Phone
+#     for phone in phone_list:
+#         if phone.id == phone_id:
+#             return {'name': phone.name, 'description': phone.description, 'price': phone.price}
+#     return {'Phone not found'}
+#
+#
+# # 2 return list
+# @app.get('/iphone')
+# async def get_iphone():
+#     phone_list = get_phone_list()
+#     phone: Phone
+#     result = []
+#     for phone in phone_list:
+#         if phone.name == 'IPhone':
+#             result.append(phone)
+#     return {'result': result}
+#
+#
+# # 3 enum
+# @app.get('/phone_name/{phone_name}')
+# async def get_phone(phone_name: PhoneEnum):
+#     if phone_name == PhoneEnum.samsung:
+#         return {'Phone name': phone_name}
+#
+#     if phone_name.value == 'htc':
+#         return {'Phone name': phone_name}
+#
+#     return {'Phone name': phone_name}
 
 # query parameter
 
@@ -124,9 +124,9 @@ async def get_phone(phone_name: PhoneEnum):
 
 
 # Path: number validation
-# @app.get('/phone/{phone_id}')
-# async def get_phone(phone_id: int = Path(..., title='phone id', ge=0)):
-#     phone_list = get_phone_list()
-#     for phone in phone_list:
-#         if phone.id == phone_id:
-#             return phone
+@app.get('/phone/{phone_id}')
+async def get_phone(phone_id: int = Path(..., title='phone id', gt=1)):
+    phone_list = get_phone_list()
+    for phone in phone_list:
+        if phone.id == phone_id:
+            return phone
