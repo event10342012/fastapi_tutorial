@@ -20,34 +20,3 @@ app.include_router(
 @app.get("/")
 async def root():
     return {"message": "Hello Bigger Applications!"}
-
-
-# Dependency injection
-
-# Dependency
-async def check_name(name: str):
-    if len(name) > 4:
-        return name
-    raise HTTPException(401, 'Length of name must grater than 4')
-
-
-@app.get('/phone')
-async def get_phone(name=Depends(check_name)):
-    return {'name': name}
-
-
-@app.get('/user')
-async def get_user(name=Depends(check_name)):
-    return {'name': name}
-
-
-# sub-dependency
-async def check_price(price: int, name: str = Depends(check_name)):
-    if price > 50:
-        return {'name': name, 'price': price}
-    raise HTTPException(401, "Price must grater than 50")
-
-
-@app.get('/phone/iphone')
-async def get_iphone(common: dict = Depends(check_price)):
-    return common
